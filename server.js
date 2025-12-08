@@ -82,13 +82,11 @@ app.post('/signup', async (req, res)=>{
         const userValidationSchema = z.object({
             email: z.string().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Please enter a valid Email"),
             userName: z.string().regex(/^(?=.*[a-z])(?=.*[A-Z])[A-Za-z0-9!@#$%^&*._-]{6,}$/, "The username must contain at least a lower case letter, an upper case letter, and a number or a special character"),
-            displayName: z.string().min(3),
             password: z.string().min(8).max(32)
         })
         const result = await userValidationSchema.safeParseAsync({
             email: data.email,
             userName:data.userName,
-            displayName: data.displayName,
             password: data.password
         })
         if(!result.success){
